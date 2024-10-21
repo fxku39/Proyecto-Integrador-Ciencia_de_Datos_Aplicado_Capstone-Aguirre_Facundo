@@ -76,7 +76,8 @@ def get_pie_chart(Launch_site_chosen):
 
 def get_scatter_chart(selected_payload_value, Launch_site_chosen):
     if Launch_site_chosen == 'ALL':
-        fig = px.scatter(data_frame=spacex_df, x='Payload Mass (kg)',y='class', color='Booster Version Category' ,title='Correlation between Payload and Success for all Sites')
+        filtered_df2=spacex_df[(spacex_df['Payload Mass (kg)'] >= selected_payload_value[0]) & (spacex_df['Payload Mass (kg)'] <= selected_payload_value[1])]
+        fig = px.scatter(data_frame=filtered_df2, x='Payload Mass (kg)',y='class', color='Booster Version Category' ,title='Correlation between Payload and Success for all Sites')
     else:
         filtered_df=spacex_df[spacex_df['Launch Site'] == Launch_site_chosen]
         fig = px.scatter(data_frame=filtered_df, x='Payload Mass (kg)',y='class', color='Booster Version Category' ,title=f'Correlation between Payload and Success for: {Launch_site_chosen}')
